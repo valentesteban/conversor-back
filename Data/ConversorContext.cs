@@ -84,7 +84,7 @@ public class ConversorContext : DbContext
             new Auth
             {
                 Id = 1,
-                Password = "R(c96$h^Ar6Z",
+                Password = "admin",
                 Role = "admin",
             });
 
@@ -97,7 +97,7 @@ public class ConversorContext : DbContext
                 LastName = "Admin",
                 Email = "admin@admin.com",
                 AuthId = 1,
-                PlanId = 1
+                PlanId = 1,
             });
     }
 }
