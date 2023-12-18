@@ -14,6 +14,7 @@ builder.Services.AddDbContext<ConversorContext>();
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IPlanService, PlanService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDistributedMemoryCache();
