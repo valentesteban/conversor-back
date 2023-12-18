@@ -12,9 +12,10 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<ConversorContext>();
 
-builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IExchangeService, ExchangeService>();
 builder.Services.AddScoped<IPlanService, PlanService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDistributedMemoryCache();
