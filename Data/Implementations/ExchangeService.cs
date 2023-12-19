@@ -43,9 +43,9 @@ public class ExchangeService : IExchangeService
             _context.CoinExchange.Where((exchange) => exchange.UserId == user.Id).ToList();
 
         var fromCoin =
-            _context.CoinExchange.FirstOrDefault((exchange) => exchange.Id == exchangeForCreationDto.FromCurrencyId)!;
+            _context.Coin.FirstOrDefault((exchange) => exchange.Id == exchangeForCreationDto.FromCoinId)!;
         var toCoin =
-            _context.CoinExchange.FirstOrDefault((exchange) => exchange.Id == exchangeForCreationDto.ToCurrencyId)!;
+            _context.Coin.FirstOrDefault((exchange) => exchange.Id == exchangeForCreationDto.ToCoinId)!;
 
         CoinExchange exchange = new()
         {
@@ -62,7 +62,7 @@ public class ExchangeService : IExchangeService
         return exchange;
     }
 
-    public List<CoinExchange> GeExchangesByPage(int page)
+    public List<CoinExchange> GetExchangesByPage(int page)
     {
         return _context.CoinExchange
             .Include((exchange) => exchange.FromCoin)
