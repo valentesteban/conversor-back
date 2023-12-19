@@ -45,7 +45,7 @@ public class UserController : ControllerBase
 
             return Unauthorized();
         }
-        catch (Exception e)
+        catch (Exception)
         {
             return Problem();
         }
@@ -59,7 +59,7 @@ public class UserController : ControllerBase
             _userContext.AddUser(userForCreationDto);
             return Ok("User created successfully");
         }
-        catch (Exception e)
+        catch (Exception)
         {
             return Problem();
         }
@@ -74,7 +74,7 @@ public class UserController : ControllerBase
             _userContext.UpdateUser(userForUpdateDto);
             return Ok("User updated successfully");
         }
-        catch (Exception e)
+        catch (Exception)
         {
             return Problem();
         }
@@ -89,7 +89,7 @@ public class UserController : ControllerBase
             _userContext.DeleteUser(userId);
             return Ok("User deleted successfully");
         }
-        catch (Exception e)
+        catch (Exception)
         {
             return Problem();
         }
