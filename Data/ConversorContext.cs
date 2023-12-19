@@ -33,29 +33,24 @@ public class ConversorContext : DbContext
             new Coin
             {
                 Id = 1,
-                Name = "Dolar estadounidense",
-                Code = "USD",
-                Value = 1,
-            }, new Coin
-            {
-                Id = 2,
                 Name = "Euro",
                 Code = "EUR",
                 Value = 1.2,
             },
             new Coin
             {
-                Id = 3,
-                Name = "Real",
-                Code = "BRL",
-                Value = 0.2,
+                Id = 2,
+                Name = "Peso Argentino",
+                Code = "ARS",
+                Value = 0.50,
+
             },
             new Coin
             {
-                Id = 4,
-                Name = "Peso argentino",
-                Code = "ARS",
-                Value = 0.33,
+                Id = 3,
+                Name = "Peso Colombiano",
+                Code = "COP",
+                Value = 0.10,
             });
 
         modelBuilder.Entity<Plan>().HasData(
