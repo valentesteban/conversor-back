@@ -43,7 +43,7 @@ public class ExchangeController : ControllerBase
 
         if (!_authService.isSameUserRequest(userId))
         {
-            return Unauthorized(new { error = "You are not authorized to see this user's conversions" });
+            return Unauthorized(new { error = "You are not authorized to see this user's exchanges" });
         }
         
         if (_userService.GetUser(userId) == null)
@@ -68,7 +68,7 @@ public class ExchangeController : ControllerBase
         
         if (!_authService.isSameUserRequest(exchangeForCreationDto.UserId))
         {
-            return Unauthorized(new { error = "You are not authorized to post conversion for another user" });
+            return Unauthorized(new { error = "You are not authorized to post exchanges for another user" });
         }
         
         if (_userService.GetUser(exchangeForCreationDto.UserId) == null)
@@ -85,7 +85,7 @@ public class ExchangeController : ControllerBase
         {
             return NotFound(new
             {
-                error = "To Currency id not found"
+                error = "To Coin id not found"
             });
         }
         
@@ -93,7 +93,7 @@ public class ExchangeController : ControllerBase
         {
             return NotFound(new
             {
-                error = "From Currency id not found"
+                error = "From Coin id not found"
             });
         }
         
@@ -109,7 +109,7 @@ public class ExchangeController : ControllerBase
         {
             return BadRequest(new
             {
-                error = "User must have a subscription"
+                error = "User must have an active Plan"
             });
         }
         
@@ -120,7 +120,7 @@ public class ExchangeController : ControllerBase
         {
             return BadRequest(new
             {
-                error = "User has reached the limit of conversions"
+                error = "User has reached the limit of exchanges"
             });
         }
 
