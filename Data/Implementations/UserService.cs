@@ -54,7 +54,7 @@ public class UserService : IUserService
         {
             _context.Users.Add(user);
         }
-        catch (Exception exception)
+        catch (Exception)
         {
             throw new Exception("IE - An error occurred while setting the data in the database");
         }
@@ -63,7 +63,7 @@ public class UserService : IUserService
         {
             _context.SaveChanges();
         }
-        catch (Exception e)
+        catch (Exception)
         {
             throw new Exception("IE - An error occurred while saving the data in the database");
         }
@@ -88,7 +88,7 @@ public class UserService : IUserService
         {
             _context.Users.Update(toChange);
         }
-        catch (Exception exception)
+        catch (Exception)
         {
             throw new Exception("IE - An error occurred while setting the data in the database");
         }
@@ -97,7 +97,7 @@ public class UserService : IUserService
         {
             _context.SaveChanges();
         }
-        catch (Exception e)
+        catch (Exception)
         {
             throw new Exception("IE - An error occurred while saving the data in the database");
         }
@@ -111,7 +111,7 @@ public class UserService : IUserService
         {
             _context.Users.Remove(toRemove);
         }
-        catch (Exception exception)
+        catch (Exception)
         {
             throw new Exception("IE - An error occurred while setting the data in the database");
         }
@@ -120,7 +120,7 @@ public class UserService : IUserService
         {
             _context.SaveChanges();
         }
-        catch (Exception e)
+        catch (Exception)
         {
             throw new Exception("IE - An error occurred while saving the data in the database");
         }
