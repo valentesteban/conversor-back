@@ -8,7 +8,6 @@ public interface IPlanService
     
     public Plan? GetPlanId(int id);
     public Plan? GetPlanName(string name);
-    
     public Plan CreatePlan(Plan planForCreationDto);
     public void UpdatePlan(Plan planForUpdateDto);
     public void DeletePlan(int planId);
