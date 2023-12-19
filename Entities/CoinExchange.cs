@@ -9,7 +9,6 @@ public class CoinExchange
     public int Id { get; set; }
     [ManyToOne (CascadeOperations = CascadeOperation.CascadeRead)]
     public Coin FromCoin { get; set; } = null!;
-
     [ManyToOne (CascadeOperations = CascadeOperation.CascadeRead)]
     public Coin ToCoin { get; set; } = null!;
     public DateTime Date { get; set; }
