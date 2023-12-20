@@ -40,7 +40,7 @@ public class UserService : IUserService
             FirstName = userForCreationDto.FirstName,
             LastName = userForCreationDto.LastName,
             Email = userForCreationDto.Email,
-            PlanId = 1,
+            PlanId = 1
         };
 
         Auth auth = new()

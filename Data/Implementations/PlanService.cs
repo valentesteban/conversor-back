@@ -19,12 +19,12 @@ public class PlanService : IPlanService
 
     public Plan? GetPlanId(int id)
     {
-        return _context.Plan.FirstOrDefault((subscription) => subscription.Id == id);
+        return _context.Plan.FirstOrDefault((plan) => plan.Id == id);
     }
 
     public Plan? GetPlanName(string name)
     {
-        return _context.Plan.FirstOrDefault((subscription) => subscription.Name.ToLower() == name.ToLower());
+        return _context.Plan.FirstOrDefault((plan) => plan.Name.ToLower() == name.ToLower());
     }
 
     public Plan CreatePlan(Plan planForCreationDto)
@@ -35,10 +35,10 @@ public class PlanService : IPlanService
             Limit = planForCreationDto.Limit
         };
 
-        var subscriptionCreated = _context.Plan.Add(plan);
+        var planCreated = _context.Plan.Add(plan);
         _context.SaveChanges();
 
-        return subscriptionCreated.Entity;
+        return planCreated.Entity;
     }
 
     public void UpdatePlan(Plan planForUpdateDto)

@@ -39,7 +39,7 @@ public class ExchangeService : IExchangeService
     public CoinExchange CreateExchange(ExchangeForCreationDTO exchangeForCreationDto)
     {
         var user = _context.Users.FirstOrDefault((user) => user.Id == exchangeForCreationDto.UserId)!;
-        var temporalUserCurrencyList =
+        var temporalUserCoinList =
             _context.CoinExchange.Where((exchange) => exchange.UserId == user.Id).ToList();
 
         var fromCoin =
@@ -55,8 +55,8 @@ public class ExchangeService : IExchangeService
             ToCoin = toCoin
         };
 
-        temporalUserCurrencyList.Add(exchange);
-        user.Exchanges = temporalUserCurrencyList;
+        temporalUserCoinList.Add(exchange);
+        user.Exchanges = temporalUserCoinList;
         _context.SaveChanges();
 
         return exchange;
