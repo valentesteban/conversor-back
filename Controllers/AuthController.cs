@@ -9,14 +9,35 @@ namespace conversor.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;
+    private readonly IUserService _userService;
 
-    public AuthController(IAuthService authService)
+    public AuthController(IAuthService authService, IUserService userService)
     {
         _authService = authService;
+        _userService = userService;
+    }
+    
+    [AllowAnonymous]
+    [HttpPost("register")]
+    public ActionResult Register(UserForCreationDTO userForCreationDto)
+    {
+        var userEmail = _userService.GetUserEmail(userForCreationDto.Email);
+        
+        if (userEmail != null)
+        {
+            return Conflict(new
+            {
+                error = "Email already exists"
+            });
+        }
+
+        var user = _userService.AddUser(userForCreationDto);
+
+        return Ok(user);
     }
 
     [AllowAnonymous]
-    [HttpPost]
+    [HttpPost("login")]
     public ActionResult Login(UserForLoginDTO userForLoginDto)
     {
         var user = _authService.Authenticate(userForLoginDto);
