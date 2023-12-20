@@ -74,7 +74,7 @@ public class UserService : IUserService
 
         User? userExist = _context.Users.FirstOrDefault((users) => users.Email == userForUpdateDto.Email);
 
-        if (userExist == null)
+        if (userExist != null)
         {
             throw new Exception("NT - User email already exists");
         }
