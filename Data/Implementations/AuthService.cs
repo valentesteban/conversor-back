@@ -58,7 +58,7 @@ public class AuthService : IAuthService
         return new JwtSecurityTokenHandler().WriteToken(token);    
     }
     
-    public Auth getCurrentUser()
+    public Auth GetCurrentUser()
     {
         var claimPrincipal = _httpContextAccessor.HttpContext.User;
         
@@ -90,7 +90,7 @@ public class AuthService : IAuthService
         return null;
     }
 
-    public bool isSameUserRequest(int userId)
+    public bool SameUserRequest(int userId)
     {
         var identity = _httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
         if (identity != null)
