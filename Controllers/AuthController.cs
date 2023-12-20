@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace conversor.Controllers;
+
 [ApiController]
 [Route("/api/[controller]")]
 public class AuthController : ControllerBase
@@ -16,7 +17,7 @@ public class AuthController : ControllerBase
         _authService = authService;
         _userService = userService;
     }
-    
+
     [AllowAnonymous]
     [HttpPost("register")]
     public ActionResult Register(UserForCreationDTO userForCreationDto)
@@ -41,20 +42,21 @@ public class AuthController : ControllerBase
     public ActionResult Login(UserForLoginDTO userForLoginDto)
     {
         var user = _authService.Authenticate(userForLoginDto);
-        
-        if (user != null)
+
+        if (user == null)
         {
-            var token = _authService.GenerateToken(user);
-            var userId = user.Id;
-            
-            var response = new
+            return Unauthorized(new
             {
-                token, userId
-            };
-            
-            return Ok(response);
+                error = "Invalid credentials"
+            });
         }
+
+        var token = _authService.GenerateToken(user);
         
-        return NotFound("Username or password is incorrect");
+        return Ok(new
+        {
+            tokenGenerated = token,
+            userId = user.Id
+        });
     }
 }
