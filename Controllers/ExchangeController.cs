@@ -36,12 +36,12 @@ public class ExchangeController : ControllerBase
     [HttpGet("{userId}")]
     public ActionResult GetExchanges(int userId, int limit)
     {
-        if (_authService.getCurrentUser() == null)
+        if (_authService.GetCurrentUser() == null)
         {
             return Unauthorized(new { error = "You are not logged in" });
         }
 
-        if (!_authService.isSameUserRequest(userId))
+        if (!_authService.SameUserRequest(userId))
         {
             return Unauthorized(new { error = "You are not authorized to see this user's exchanges" });
         }
@@ -61,12 +61,12 @@ public class ExchangeController : ControllerBase
     [HttpPost]
     public ActionResult<CoinExchange> PostExchange(ExchangeForCreationDTO exchangeForCreationDto)
     {
-        if (_authService.getCurrentUser() == null)
+        if (_authService.GetCurrentUser() == null)
         {
             return Unauthorized(new { error = "You are not logged in" });
         }
         
-        if (!_authService.isSameUserRequest(exchangeForCreationDto.UserId))
+        if (!_authService.SameUserRequest(exchangeForCreationDto.UserId))
         {
             return Unauthorized(new { error = "You are not authorized to post exchanges for another user" });
         }
