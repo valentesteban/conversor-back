@@ -1,6 +1,7 @@
 ﻿using conversor.Data.Interfaces;
 using conversor.Entities;
 using conversor.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace conversor.Data.Implementations;
 
@@ -24,58 +25,56 @@ public class UserService : IUserService
 
         return user;
     }
-
-    public User? GetUser(string email)
+    
+    public User? GetUserEmail(string email)
     {
-        User? user = _context.Users.FirstOrDefault((users) => users.Email == email);
-
-        return user;
+        return _context.Users.Include((user) => user.Plan)
+            .Include((user) => user.Auth).FirstOrDefault((users) => users.Email.ToLower() == email.ToLower());
     }
 
-    public void AddUser(UserForCreationDTO userForCreationDto)
+    public UserForCheckDTO AddUser(UserForCreationDTO userForCreationDto)
     {
-        User? userExist = _context.Users.FirstOrDefault((users) => users.Email == userForCreationDto.Email);
-
-        if (userExist != null)
-        {
-            throw new Exception("NT - User email already exists");
-        }
-
         User user = new()
         {
-            Username = userForCreationDto.UserName,
+            Username = userForCreationDto.Username,
             FirstName = userForCreationDto.FirstName,
             LastName = userForCreationDto.LastName,
             Email = userForCreationDto.Email,
-            Plan = userForCreationDto.Plan
+            PlanId = 1,
         };
 
-        try
+        Auth auth = new()
         {
-            _context.Users.Add(user);
-        }
-        catch (Exception)
-        {
-            throw new Exception("IE - An error occurred while setting the data in the database");
-        }
+            Password = userForCreationDto.Password,
+            Role = "User"
+        };
 
-        try
+        var authCreated = _context.Auth.Add(auth);
+        _context.SaveChanges();
+
+        user.Auth = authCreated.Entity;
+        user.AuthId = authCreated.Entity.Id;
+
+        var userCreated = _context.Users.Add(user);
+        _context.SaveChanges();
+
+        return new UserForCheckDTO()
         {
-            _context.SaveChanges();
-        }
-        catch (Exception)
-        {
-            throw new Exception("IE - An error occurred while saving the data in the database");
-        }
+            Email = userForCreationDto.Email,
+            FirstName = userForCreationDto.FirstName,
+            LastName = userForCreationDto.LastName,
+            Username = userForCreationDto.Username,
+            Id = userCreated.Entity.Id,
+        };
     }
 
     public void UpdateUser(UserForUpdateDTO userForUpdateDto)
     {
-        User? toChange = GetUser(userForUpdateDto.UserToChangeID);
+        User? toChange = GetUser(userForUpdateDto.UserId);
 
         User? userExist = _context.Users.FirstOrDefault((users) => users.Email == userForUpdateDto.Email);
 
-        if (userExist != null)
+        if (userExist == null)
         {
             throw new Exception("NT - User email already exists");
         }
