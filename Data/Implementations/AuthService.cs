@@ -23,7 +23,7 @@ public class AuthService : IAuthService
 
     public Auth Authenticate(UserForLoginDTO userForLoginDto)
     {
-        var user = _context.Users.FirstOrDefault(x => x.Username.ToLower() == userForLoginDto.Username.ToLower());
+        var user = _context.Users.FirstOrDefault(x => x.Username.ToLower() == userForLoginDto.Email.ToLower());
         
          if (user == null)
          {
