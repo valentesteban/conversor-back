@@ -33,12 +33,12 @@ public class UserController : ControllerBase
     {
         try
         {
-            if (_authService.getCurrentUser() == null)
+            if (_authService.GetCurrentUser() == null)
             {
                 return Unauthorized();
             }
 
-            if (_authService.getCurrentUser().Id == userId || _authService.getCurrentUser().Role == "admin")
+            if (_authService.GetCurrentUser().Id == userId || _authService.GetCurrentUser().Role == "admin")
             {
                 return Ok(_userContext.GetUser(userId));
             }
