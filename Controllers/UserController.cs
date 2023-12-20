@@ -51,6 +51,19 @@ public class UserController : ControllerBase
         }
     }
     
+    [HttpGet("check/{email}")]
+    public ActionResult<bool> CheckUserEmail(string email)
+    {
+        var check = _userContext.GetUserEmail(email);
+        
+        if (check == null)
+        {
+            return Ok(false);
+        }
+        
+        return Ok(true);
+    }
+    
     [HttpPost]
     public ActionResult<User> PostUser(UserForCreationDTO userForCreationDto)
     {
